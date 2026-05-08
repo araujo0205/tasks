@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid, Inbox } from 'lucide-vue-next';
+import { BookOpen, FolderGit2, LayoutGrid, Inbox, ListTodo } from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard, inbox } from '@/routes';
 import type { NavItem } from '@/types';
+import tasks from '@/routes/tasks';
 
 const mainNavItems: NavItem[] = [
     {
@@ -27,6 +28,11 @@ const mainNavItems: NavItem[] = [
         title: 'Adicionar Tarefa',
         href: inbox(),
         icon: Inbox,
+    },
+    {
+        title: 'Tarefas',
+        href: tasks.index(),
+        icon: ListTodo,
     }
 ];
 

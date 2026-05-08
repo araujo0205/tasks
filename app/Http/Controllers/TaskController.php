@@ -13,7 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Tasks', [
+            'tasks' => Task::orderBy('created_at', 'desc')->get(),
+        ]);
     }
 
     /**
