@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,10 +33,8 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
         ]);
 
-        auth()->user()->tasks()->create($validated);
+        Task::create($validated);
 
-        // add flash message here
-        // session()->flash('success', 'Tarefa adicionada com sucesso!');
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Tarefa adicionada com sucesso!')]);
 
         return redirect()->back();
