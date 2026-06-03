@@ -28,4 +28,4 @@ yarn-error.log
 /.vscode
 /.zed
 
-.php.cs-fixer.cache
+.php-cs-fixer.cache
