@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { SquareCheckBig } from 'lucide-vue-next';
+import { SquareCheckBig } from '@lucide/vue';
 
 defineOptions({
     inheritAttrs: false,

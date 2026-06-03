@@ -34,7 +34,7 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from '@/components/ui/empty'
-import { Check, Inbox, Pen, Trash } from 'lucide-vue-next';
+import { Check, Inbox, Pen, Trash } from '@lucide/vue';
 
 
 defineOptions({
