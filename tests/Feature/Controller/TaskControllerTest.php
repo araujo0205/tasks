@@ -50,6 +50,26 @@ class TaskControllerTest extends TestCase
     }
 
     #[Test]
+    public function create_task_without_status()
+    {
+        $body = [
+            'title' => 'A title',
+        ];
+
+        $response = $this->post(route('tasks.store'), $body);
+
+        $response->assertRedirectBack();
+
+        $this->assertDatabaseHas(
+            'tasks',
+            [
+                'title' => 'A title',
+                'status' => 'inbox',
+            ]
+        );
+    }
+
+    #[Test]
     public function not_show_others_tasks()
     {
         Task::factory()->for(User::factory())->create();

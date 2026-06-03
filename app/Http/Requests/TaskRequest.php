@@ -27,7 +27,7 @@ class TaskRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'status' => ['required', Rule::enum(TaskStatus::class)],
+            'status' => ['sometimes', Rule::enum(TaskStatus::class)],
 
         ];
     }
