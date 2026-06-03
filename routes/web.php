@@ -11,8 +11,8 @@ Route::inertia('/', 'Welcome', [
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
     Route::inertia('inbox', 'Inbox')->name('inbox');
-    Route::get('tasks', [TaskController::class, 'index'])->name('tasks.index');
-    Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+    Route::resource('tasks', TaskController::class);
 });
 
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\TaskData;
+use App\Enums\TaskStatus;
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -13,8 +15,10 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $tasks = Task::where('status', TaskStatus::INBOX)->latest();
+
         return Inertia::render('Tasks', [
-            'tasks' => Task::orderBy('created_at', 'desc')->get(),
+            'tasks' => Inertia::scroll(fn() => TaskData::collect($tasks->paginate())),
         ]);
     }
 
@@ -29,17 +33,13 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
-
-        Task::create($validated);
+        Task::create($request->validated());
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Tarefa adicionada com sucesso!')]);
 
-        return redirect()->back();
+        return back();
     }
 
     /**
@@ -61,16 +61,24 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TaskRequest $request, Task $task)
     {
-        //
+        $task->update($request->validated());
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Tarefa atualizada com sucesso!')]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Tarefa deletada com sucesso!')]);
+
+        return back();
     }
 }
